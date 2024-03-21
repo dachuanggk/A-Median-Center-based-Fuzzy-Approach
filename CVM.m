@@ -52,21 +52,21 @@ Q_mean=median(Q,3);
 % temp=[reshape(q_mean',1,[])];
 %   % eval(['Y_mean''=  
 % q_mean = sprintf('%4.2f  %4.2f  %4.2f   %4.2f \n', temp);
-% disp('ËãÊõÆ½¾ù¾ØÕóÎª')
+% disp('����ƽ������Ϊ')
 % q_mean  
 
-disp('²½Öè3£¬QµÄarithmetic mean matrix£º')
+disp('����3��Q��arithmetic mean matrix��')
 
 sprintf('%4.2f  %4.2f  %4.2f  %4.2f\n', Q_mean')
 
-%%% µÚ3²½£¬Çó¼ÓÈ¨¾ØÕóµÄìØ
+%%% ��3�������Ȩ�������
 
 for k=1:t 
     P(:,:,k)=Q(:,:,k)./sum(sum(Q(:,:,k)));
     E(k)=-sum(sum(P(:,:,k).*log(P(:,:,k))))/log(m*n);   
 end
 
-disp('QkµÄìØÎª')
+disp('Qk����Ϊ')
 E
 
 P=Q_mean/sum(sum(Q_mean));
@@ -76,10 +76,10 @@ for k=1:t
     D(k) =abs( E(k)-E_mean);
     R(k) =E_mean./(E_mean+D(k));
 end
-disp('µÚ4²½£¬Çó4¸öÆ«Àë¶È')
+disp('��4������4��ƫ���')
 D, R
 
-disp('²½Öè8£¬weights of DMs Îª£º')
+disp('����8��weights of DMs Ϊ��')
 
  lambda=R/sum(R) 
     
@@ -145,7 +145,7 @@ nu{4}=[0.30 0.50 0.65 0.65
 
 F=zeros(4,4,4);
 
-disp('Step 8£¬Pythagorean fuzzy matrices');
+disp('Step 8��Pythagorean fuzzy matrices');
 
 for k=1:4
     temp=[reshape(mu{k}',1,[]); reshape(nu{k}',1,[])];
@@ -153,9 +153,9 @@ for k=1:4
 end
 clear F1 F2 F3 
 
-%%%% µÚ2²½£¬Çó¼ÓÈ¨¾ö²ß¾ØÕó
+%%%% ��2�������Ȩ���߾���
 
-disp('Step 9£¬¼ÓÈ¨µ½¾ö²ßÕß')
+disp('Step 9����Ȩ��������')
 
 % weights=[0.3348, 0.3327, 0.3325];
 % weight(k)=ones(4,4)*lambda(k)
@@ -164,15 +164,17 @@ disp('Step 9£¬¼ÓÈ¨µ½¾ö²ßÕß')
 % 
 for k=1:4 
     weight(:,:,k)=ones(m,4)*lambda(k);
-    xi(:,:,k)=mu{k}.^weight(:,:,k);
-    o(:,:,k)=sqrt(1-(1-nu{k}.^2).^weight(:,:,k));   
+    xi(:,:,k)=sqrt(1-(1-mu{k}.^2).^weight(:,:,k)); 
+   % xi(:,:,k)=mu{k}.^weight(:,:,k);
+   % o(:,:,k)=sqrt(1-(1-nu{k}.^2).^weight(:,:,k));  
+     o(:,:,k)=nu{k}.^weight(:,:,k);
    tmp=[reshape(xi(:,:,k)',1,[]);  reshape(o(:,:,k)',1,[])];
    eval(['H',num2str(k),'=  sprintf(''(%3.2f,  %3.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', tmp)']);
 end
 
 
-%%%% ×ª»»³É·½°¸¾ØÕó
-disp('µÚ10²½£¬Èº¾ö²ß¾ØÕó')
+%%%% ת���ɷ�������
+disp('��10����Ⱥ���߾���')
 xii=permute(xi,[3,2,1])
 oi=permute(o,[3,2,1])
 for k=1:4 
@@ -182,7 +184,7 @@ for k=1:4
    eval(['G',num2str(k),'=  sprintf(''(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', temp)']);
 end
 
-disp('µÚ11²½£¬¼ÓÈ¨µ½ÊôÐÔ')
+disp('��11������Ȩ������')
 
 weights=[0.3,0.3,0.2,0.2];
 weighted=ones(4,1)*weights
@@ -191,22 +193,26 @@ weighted=ones(4,1)*weights
 for k=1:4   
      for j=1:4
          weighted(:,3,:);
-    tau(:,j,k)=xii(:,j,k).^weighted(:,j);
-    upsilon(:,j,k)=sqrt(1-(1-oi(:,j,k).^2).^weighted(:,j));
+   % tau(:,j,k)=xii(:,j,k).^weighted(:,j);
+    
+     tau(:,j,k)=sqrt(1-(1-xii(:,j,k).^2).^weighted(:,j));
+   % upsilon(:,j,k)=sqrt(1-(1-oi(:,j,k).^2).^weighted(:,j));
+    upsilon(:,j,k)=oi(:,j,k).^weighted(:,j);
+    
      end
    % weighted
    tmp=[reshape(tau(:,:,k)',1,[]);  reshape(upsilon(:,:,k)',1,[])];
    eval(['Y',num2str(k),'=  sprintf(''(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', tmp)']);    
  end
-% ·½°¸ÀíÏë½â
+% ���������
 
-%%% µÚ2²½£¬ÇóÀíÏë½â
+%%% ��2�����������
 tau_pos=max(tau,[],3);
     tau_neg=min(tau,[],3);
 
    
-    upsilon_pos=min(upsilon,[],3);%%%ÕýÀíÏë½â   
-    upsilon_neg=max(upsilon,[],3); %%%¸ºÀíÏë½â
+    upsilon_pos=min(upsilon,[],3);%%%�������   
+    upsilon_neg=max(upsilon,[],3); %%%�������
 
 pos=[];
 neg=[];
@@ -215,9 +221,9 @@ pos=[pos, tau_pos(:,1),upsilon_pos(:,1), tau_pos(:,2), upsilon_pos(:,2), tau_pos
 neg=[neg, tau_neg(:,1),upsilon_neg(:,1), tau_neg(:,2), upsilon_neg(:,2), tau_neg(:,3), upsilon_neg(:,3), tau_neg(:,4), upsilon_neg(:,4)];
 com=[com, upsilon_pos(:,1),tau_pos(:,1), upsilon_pos(:,2), tau_pos(:,2), upsilon_pos(:,3), tau_pos(:,3), upsilon_pos(:,4), tau_pos(:,4)];
 
-%%% Êä³öÀíÏë½â 
+%%% �������� 
 
-disp('µÚ12²½£¬ÀíÏë¾ö²ß')
+disp('��12�����������')
 
 disp('maximum decision matrix Y_{+}')
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', pos')
@@ -225,7 +231,7 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', p
 disp('minimum decision matrix Y_{-}')
 sprintf('(%4.2f, %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)  (%4.2f, %4.2f)\n', neg')
 
-disp('ÓàÀíÏë¾ö²ßÎª£º')
+disp('���������Ϊ��')
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', com')
 
 for i=1:4  
@@ -241,7 +247,7 @@ end
 chipos
 chineg
 
-disp('µÚ13²½£¬ÒÅº¶¾ØÕóÎª') 
+disp('��13�����ź�����Ϊ') 
 
 %R=Y;
 for k=1:4  
@@ -253,12 +259,12 @@ for k=1:4
 end
  %  https://www.ilovematlab.cn/thread-317135-1-1.html  
 
-disp('µÚ14²½£¬×î´óÒÅº¶¾ØÕóRmaxÎª')  
+disp('��14��������ź�����RmaxΪ')  
 
-rho_pos=max(rho,[],3); %%%ÕýÀíÏë½â
+rho_pos=max(rho,[],3); %%%�������
     
 
-    varrho_pos=min(varrho,[],3); %%%ÕýÀíÏë½â 
+    varrho_pos=min(varrho,[],3); %%%������� 
 
 Rmax=[];
 
@@ -266,7 +272,7 @@ Rmax=[Rmax, rho_pos(:,1),varrho_pos(:,1), rho_pos(:,2), varrho_pos(:,2), rho_pos
 
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', Rmax')
 
-disp('µÚ15²½£¬ÈºÂúÒâ¾ØÕóS_negÎª')  
+disp('��15����Ⱥ�������S_negΪ')  
 
 for k=1:4 
     psi(:,:,k)=tau(:,:,k).*tau_neg;  
@@ -275,11 +281,11 @@ for k=1:4
     tmp=[reshape(psi(:,:,k)',1,[]);reshape(omega(:,:,k)',1,[])];
     eval(['S_neg',num2str(k),'= sprintf(''(%4.2f, %4.2f) (%4.2f, %4.2f) (%4.2f, %4.2f) (%4.2f, %4.2f)\n'', tmp)']);  
 end
-disp('µÚ16²½£¬×î´óÈºÂúÒâ¾ØÕóS_neg_maxÎª')  
+disp('��16�������Ⱥ�������S_neg_maxΪ')  
 
-psi_pos=max(psi,[],3); %%%ÕýÀíÏë½â
+psi_pos=max(psi,[],3); %%%�������
     
-omega_pos=min(omega,[],3); %%%ÕýÀíÏë½â 
+omega_pos=min(omega,[],3); %%%������� 
 
 S_neg_max=[];
 
@@ -287,7 +293,7 @@ S_neg_max=[S_neg_max, psi_pos(:,1),omega_pos(:,1), psi_pos(:,2), omega_pos(:,2),
 
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S_neg_max')
 
-% disp('µÚ17²½£¬ÈºÂúÒâ¾ØÕóS_comÎª')  
+% disp('��17����Ⱥ�������S_comΪ')  
 % 
 % for k=1:4    
 %     iota{k}=tau{k}.*upsilon_pos;
@@ -299,15 +305,15 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S
 %      eval(['Scom',num2str(k),'= sprintf(''(%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f)\n'', tmp)']);  
 % end
 % 
-% disp('µÚ18²½£¬×î´óÈºÂúÒâ¾ØÕóS_com_maxÎª')  
+% disp('��18�������Ⱥ�������S_com_maxΪ')  
 % 
 % temp=[];
 % for k=1:4  
 %     tem(:,:,k)=iota{k};
-%     iota_pos=max(tem,[],3); %%%ÕýÀíÏë½â
+%     iota_pos=max(tem,[],3); %%%�������
 %     
 %     tp(:,:,k)=kappa{k};
-%     kappa_pos=min(tp,[],3); %%%ÕýÀíÏë½â       
+%     kappa_pos=min(tp,[],3); %%%�������       
 % end
 % 
 % S_com_max=[];
@@ -316,7 +322,7 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S
 % 
 % sprintf('(%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f)\n', S_com_max')
 
-disp('µÚ19²½£¬¼ÆËãgroup utility')  
+disp('��19��������group utility')  
 
 for k=1:4 
     % Yi*Y+
@@ -329,11 +335,11 @@ for k=1:4
     Y_Yneg(k)=sum(sum(tau(:,:,k).*tau_neg+upsilon(:,:,k).*upsilon_neg ...
      +chi(:,:,k).*chi_neg));
 end
-disp('YiÓëYposÄÚ»ý ')  
+disp('Yi��Ypos�ڻ� ')  
 
 Y_Ypos
 
-disp('YiÓëYnegÄÚ»ý ') 
+disp('Yi��Yneg�ڻ� ') 
 
 Y_Yneg
 
@@ -346,7 +352,7 @@ GU
  
 NGU=(GU-min(GU))./(max(GU)-min(GU))
 
-disp('µÚ20²½£¬¼ÆËãgroup regret ')  
+disp('��20��������group regret ')  
 
 for k=1:4  
     % Ri*Rmax
@@ -355,7 +361,7 @@ for k=1:4
     R_Rmax(k)=sum(sum(rho(:,:,k).*rho_pos+varrho(:,:,k).*varrho_pos+sigma(:,:,k).*sigma_pos));
 end
 
-disp('RiÓëRmaxÄÚ»ý ') 
+disp('Ri��Rmax�ڻ� ') 
 
 R_Rmax
 
@@ -367,7 +373,7 @@ GR
 NGR=(max(GR)-GR)./(max(GR)-min(GR))
 
 
-disp('µÚ21²½£¬¼ÆËãgroup satisfaction GS- ')  
+disp('��21��������group satisfaction GS- ')  
 
 for k=1:4  
     % S-*Smax
@@ -377,7 +383,7 @@ for k=1:4
      +varsigma(:,:,k).*varsigma_pos));
 end
 
-disp('Si^{-}ÓëSmax^{-}ÄÚ»ý ')
+disp('Si^{-}��Smax^{-}�ڻ� ')
 Sneg_Smax
 
 disp('GS_{i}^{-} ')
@@ -389,7 +395,7 @@ GSneg
  
 NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 
-% disp('µÚ22²½£¬¼ÆËãgroup satisfaction GSc ')
+% disp('��22��������group satisfaction GSc ')
 % 
 % for k=1:4
 %     % Sc*Smax
@@ -410,7 +416,7 @@ NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 % 
 % NGScom=(GScom-min(GScom))./(max(GScom)-min(GScom))
 % 
-% disp('µÚ23²½£¬¼ÆËã comprehensive group satisfaction CGS ')
+% disp('��23�������� comprehensive group satisfaction CGS ')
 % 
 % for k=1:4
 %     CGS(k)=0.5*NGSneg(k)+0.5*NGScom(k);
@@ -418,7 +424,7 @@ NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 
 %CGS
 
-disp('µÚ24²½£¬¼ÆËã comprehensive VIKOR measure Q ') 
+disp('��24�������� comprehensive VIKOR measure Q ') 
 
 % lambda=0:0.01:1/3;
 %len=length(lambda);
@@ -452,8 +458,8 @@ end
 plot(alpha,Q1(:,1),'b'),hold on,
 plot(alpha,Q1(:,2),'r.'),plot(alpha,Q1(:,3),'g--'),
 plot(alpha,Q1(:,4),'k-.');
-legend('O_{1}','O_{2}','O_{3}','O_{4}','Location','Southeast');
-% axis([0,1,-0.1,1.1]);
+legend('A_{1}','A_{2}','A_{3}','A_{4}','Location','Southeast');
+% axis([0,1,-0.1,0.7]);
 %axis([0,0.35,1.2]);
 %set(gca,'xtick',[0:0.2:1]);
 % title('Qi');
