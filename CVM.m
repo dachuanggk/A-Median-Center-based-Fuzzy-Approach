@@ -52,21 +52,21 @@ Q_mean=median(Q,3);
 % temp=[reshape(q_mean',1,[])];
 %   % eval(['Y_mean''=  
 % q_mean = sprintf('%4.2f  %4.2f  %4.2f   %4.2f \n', temp);
-% disp('算术平均矩阵为')
+% disp('脣茫脢玫脝陆戮霉戮脴脮贸脦陋')
 % q_mean  
 
-disp('步骤3，Q的arithmetic mean matrix：')
+disp('虏陆脰猫3拢卢Q碌脛arithmetic mean matrix拢潞')
 
 sprintf('%4.2f  %4.2f  %4.2f  %4.2f\n', Q_mean')
 
-%%% 第3步，求加权矩阵的熵
+%%% 碌脷3虏陆拢卢脟贸录脫脠篓戮脴脮贸碌脛矛脴
 
 for k=1:t 
     P(:,:,k)=Q(:,:,k)./sum(sum(Q(:,:,k)));
     E(k)=-sum(sum(P(:,:,k).*log(P(:,:,k))))/log(m*n);   
 end
 
-disp('Qk的熵为')
+disp('Qk碌脛矛脴脦陋')
 E
 
 P=Q_mean/sum(sum(Q_mean));
@@ -76,10 +76,10 @@ for k=1:t
     D(k) =abs( E(k)-E_mean);
     R(k) =E_mean./(E_mean+D(k));
 end
-disp('第4步，求4个偏离度')
+disp('碌脷4虏陆拢卢脟贸4赂枚脝芦脌毛露脠')
 D, R
 
-disp('步骤8，weights of DMs 为：')
+disp('虏陆脰猫8拢卢weights of DMs 脦陋拢潞')
 
  lambda=R/sum(R) 
     
@@ -88,13 +88,13 @@ disp('步骤8，weights of DMs 为：')
 %      (0.30, 0.75) (0.85, 0.20)  (0.50, 0.50) (0.65, 0.40)
 %      (0.85, 0.20) (0.75, 0.30)  (0.75, 0.30) (0.65, 0.40)];      
 
-% alpha = 0:0.01:0.9156;
-% len=length(alpha);
-% Q1=zeros(len,4);
-% NGU1=zeros(len,4);
+alpha = 0:0.01:0.9156;
+len=length(alpha);
+Q1=zeros(len,4);
+NGU1=zeros(len,4);
 
-% for row=1:len
-mu{1}=[0.65 0.40 0.50 0.65   
+for row=1:len
+mu{1}=[alpha(row) 0.40 0.50 0.65   
      0.75 0.65 0.75 0.40     
      0.30 0.85 0.50 0.65
      0.85 0.75 0.75 0.65];
@@ -145,7 +145,7 @@ nu{4}=[0.30 0.50 0.65 0.65
 
 F=zeros(4,4,4);
 
-disp('Step 8，Pythagorean fuzzy matrices');
+disp('Step 8拢卢Pythagorean fuzzy matrices');
 
 for k=1:4
     temp=[reshape(mu{k}',1,[]); reshape(nu{k}',1,[])];
@@ -153,9 +153,9 @@ for k=1:4
 end
 clear F1 F2 F3 
 
-%%%% 第2步，求加权决策矩阵
+%%%% 碌脷2虏陆拢卢脟贸录脫脠篓戮枚虏脽戮脴脮贸
 
-disp('Step 9，加权到决策者')
+disp('Step 9拢卢录脫脠篓碌陆戮枚虏脽脮脽')
 
 % weights=[0.3348, 0.3327, 0.3325];
 % weight(k)=ones(4,4)*lambda(k)
@@ -164,17 +164,15 @@ disp('Step 9，加权到决策者')
 % 
 for k=1:4 
     weight(:,:,k)=ones(m,4)*lambda(k);
-    xi(:,:,k)=sqrt(1-(1-mu{k}.^2).^lambda(k)); 
-   % xi(:,:,k)=mu{k}.^weight(:,:,k);
-   % o(:,:,k)=sqrt(1-(1-nu{k}.^2).^weight(:,:,k));  
-     o(:,:,k)=nu{k}.^lambda(k);
+    xi(:,:,k)=mu{k}.^weight(:,:,k);
+    o(:,:,k)=sqrt(1-(1-nu{k}.^2).^weight(:,:,k));   
    tmp=[reshape(xi(:,:,k)',1,[]);  reshape(o(:,:,k)',1,[])];
    eval(['H',num2str(k),'=  sprintf(''(%3.2f,  %3.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', tmp)']);
 end
 
 
-%%%% 转换成方案矩阵
-disp('第10步，群决策矩阵')
+%%%% 脳陋禄禄鲁脡路陆掳赂戮脴脮贸
+disp('碌脷10虏陆拢卢脠潞戮枚虏脽戮脴脮贸')
 xii=permute(xi,[3,2,1])
 oi=permute(o,[3,2,1])
 for k=1:4 
@@ -184,7 +182,7 @@ for k=1:4
    eval(['G',num2str(k),'=  sprintf(''(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', temp)']);
 end
 
-disp('第11步，加权到属性')
+disp('碌脷11虏陆拢卢录脫脠篓碌陆脢么脨脭')
 
 weights=[0.3,0.3,0.2,0.2];
 weighted=ones(4,1)*weights
@@ -193,26 +191,22 @@ weighted=ones(4,1)*weights
 for k=1:4   
      for j=1:4
          weighted(:,3,:);
-   % tau(:,j,k)=xii(:,j,k).^weighted(:,j);
-    
-     tau(:,j,k)=sqrt(1-(1-xii(:,j,k).^2).^weighted(:,j));
-   % upsilon(:,j,k)=sqrt(1-(1-oi(:,j,k).^2).^weighted(:,j));
-    upsilon(:,j,k)=oi(:,j,k).^weighted(:,j);
-    
+    tau(:,j,k)=xii(:,j,k).^weighted(:,j);
+    upsilon(:,j,k)=sqrt(1-(1-oi(:,j,k).^2).^weighted(:,j));
      end
    % weighted
    tmp=[reshape(tau(:,:,k)',1,[]);  reshape(upsilon(:,:,k)',1,[])];
    eval(['Y',num2str(k),'=  sprintf(''(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', tmp)']);    
  end
-% 方案理想解
+% 路陆掳赂脌铆脧毛陆芒
 
-%%% 第2步，求理想解
+%%% 碌脷2虏陆拢卢脟贸脌铆脧毛陆芒
 tau_pos=max(tau,[],3);
     tau_neg=min(tau,[],3);
 
    
-    upsilon_pos=min(upsilon,[],3);%%%正理想解   
-    upsilon_neg=max(upsilon,[],3); %%%负理想解
+    upsilon_pos=min(upsilon,[],3);%%%脮媒脌铆脧毛陆芒   
+    upsilon_neg=max(upsilon,[],3); %%%赂潞脌铆脧毛陆芒
 
 pos=[];
 neg=[];
@@ -221,9 +215,9 @@ pos=[pos, tau_pos(:,1),upsilon_pos(:,1), tau_pos(:,2), upsilon_pos(:,2), tau_pos
 neg=[neg, tau_neg(:,1),upsilon_neg(:,1), tau_neg(:,2), upsilon_neg(:,2), tau_neg(:,3), upsilon_neg(:,3), tau_neg(:,4), upsilon_neg(:,4)];
 com=[com, upsilon_pos(:,1),tau_pos(:,1), upsilon_pos(:,2), tau_pos(:,2), upsilon_pos(:,3), tau_pos(:,3), upsilon_pos(:,4), tau_pos(:,4)];
 
-%%% 输出理想解 
+%%% 脢盲鲁枚脌铆脧毛陆芒 
 
-disp('第12步，理想决策')
+disp('碌脷12虏陆拢卢脌铆脧毛戮枚虏脽')
 
 disp('maximum decision matrix Y_{+}')
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', pos')
@@ -231,7 +225,7 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', p
 disp('minimum decision matrix Y_{-}')
 sprintf('(%4.2f, %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)  (%4.2f, %4.2f)\n', neg')
 
-disp('余理想决策为：')
+disp('脫脿脌铆脧毛戮枚虏脽脦陋拢潞')
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', com')
 
 for i=1:4  
@@ -247,7 +241,7 @@ end
 chipos
 chineg
 
-disp('第13步，遗憾矩阵为') 
+disp('碌脷13虏陆拢卢脪脜潞露戮脴脮贸脦陋') 
 
 %R=Y;
 for k=1:4  
@@ -259,12 +253,12 @@ for k=1:4
 end
  %  https://www.ilovematlab.cn/thread-317135-1-1.html  
 
-disp('第14步，最大遗憾矩阵Rmax为')  
+disp('碌脷14虏陆拢卢脳卯麓贸脪脜潞露戮脴脮贸Rmax脦陋')  
 
-rho_pos=max(rho,[],3); %%%正理想解
+rho_pos=max(rho,[],3); %%%脮媒脌铆脧毛陆芒
     
 
-    varrho_pos=min(varrho,[],3); %%%正理想解 
+    varrho_pos=min(varrho,[],3); %%%脮媒脌铆脧毛陆芒 
 
 Rmax=[];
 
@@ -272,7 +266,7 @@ Rmax=[Rmax, rho_pos(:,1),varrho_pos(:,1), rho_pos(:,2), varrho_pos(:,2), rho_pos
 
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', Rmax')
 
-disp('第15步，群满意矩阵S_neg为')  
+disp('碌脷15虏陆拢卢脠潞脗煤脪芒戮脴脮贸S_neg脦陋')  
 
 for k=1:4 
     psi(:,:,k)=tau(:,:,k).*tau_neg;  
@@ -281,11 +275,11 @@ for k=1:4
     tmp=[reshape(psi(:,:,k)',1,[]);reshape(omega(:,:,k)',1,[])];
     eval(['S_neg',num2str(k),'= sprintf(''(%4.2f, %4.2f) (%4.2f, %4.2f) (%4.2f, %4.2f) (%4.2f, %4.2f)\n'', tmp)']);  
 end
-disp('第16步，最大群满意矩阵S_neg_max为')  
+disp('碌脷16虏陆拢卢脳卯麓贸脠潞脗煤脪芒戮脴脮贸S_neg_max脦陋')  
 
-psi_pos=max(psi,[],3); %%%正理想解
+psi_pos=max(psi,[],3); %%%脮媒脌铆脧毛陆芒
     
-omega_pos=min(omega,[],3); %%%正理想解 
+omega_pos=min(omega,[],3); %%%脮媒脌铆脧毛陆芒 
 
 S_neg_max=[];
 
@@ -293,7 +287,7 @@ S_neg_max=[S_neg_max, psi_pos(:,1),omega_pos(:,1), psi_pos(:,2), omega_pos(:,2),
 
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S_neg_max')
 
-% disp('第17步，群满意矩阵S_com为')  
+% disp('碌脷17虏陆拢卢脠潞脗煤脪芒戮脴脮贸S_com脦陋')  
 % 
 % for k=1:4    
 %     iota{k}=tau{k}.*upsilon_pos;
@@ -305,15 +299,15 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S
 %      eval(['Scom',num2str(k),'= sprintf(''(%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f)\n'', tmp)']);  
 % end
 % 
-% disp('第18步，最大群满意矩阵S_com_max为')  
+% disp('碌脷18虏陆拢卢脳卯麓贸脠潞脗煤脪芒戮脴脮贸S_com_max脦陋')  
 % 
 % temp=[];
 % for k=1:4  
 %     tem(:,:,k)=iota{k};
-%     iota_pos=max(tem,[],3); %%%正理想解
+%     iota_pos=max(tem,[],3); %%%脮媒脌铆脧毛陆芒
 %     
 %     tp(:,:,k)=kappa{k};
-%     kappa_pos=min(tp,[],3); %%%正理想解       
+%     kappa_pos=min(tp,[],3); %%%脮媒脌铆脧毛陆芒       
 % end
 % 
 % S_com_max=[];
@@ -322,7 +316,7 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S
 % 
 % sprintf('(%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f)\n', S_com_max')
 
-disp('第19步，计算group utility')  
+disp('碌脷19虏陆拢卢录脝脣茫group utility')  
 
 for k=1:4 
     % Yi*Y+
@@ -335,11 +329,11 @@ for k=1:4
     Y_Yneg(k)=sum(sum(tau(:,:,k).*tau_neg+upsilon(:,:,k).*upsilon_neg ...
      +chi(:,:,k).*chi_neg));
 end
-disp('Yi与Ypos内积 ')  
+disp('Yi脫毛Ypos脛脷禄媒 ')  
 
 Y_Ypos
 
-disp('Yi与Yneg内积 ') 
+disp('Yi脫毛Yneg脛脷禄媒 ') 
 
 Y_Yneg
 
@@ -352,7 +346,7 @@ GU
  
 NGU=(GU-min(GU))./(max(GU)-min(GU))
 
-disp('第20步，计算group regret ')  
+disp('碌脷20虏陆拢卢录脝脣茫group regret ')  
 
 for k=1:4  
     % Ri*Rmax
@@ -361,7 +355,7 @@ for k=1:4
     R_Rmax(k)=sum(sum(rho(:,:,k).*rho_pos+varrho(:,:,k).*varrho_pos+sigma(:,:,k).*sigma_pos));
 end
 
-disp('Ri与Rmax内积 ') 
+disp('Ri脫毛Rmax脛脷禄媒 ') 
 
 R_Rmax
 
@@ -373,7 +367,7 @@ GR
 NGR=(max(GR)-GR)./(max(GR)-min(GR))
 
 
-disp('第21步，计算group satisfaction GS- ')  
+disp('碌脷21虏陆拢卢录脝脣茫group satisfaction GS- ')  
 
 for k=1:4  
     % S-*Smax
@@ -383,7 +377,7 @@ for k=1:4
      +varsigma(:,:,k).*varsigma_pos));
 end
 
-disp('Si^{-}与Smax^{-}内积 ')
+disp('Si^{-}脫毛Smax^{-}脛脷禄媒 ')
 Sneg_Smax
 
 disp('GS_{i}^{-} ')
@@ -395,7 +389,7 @@ GSneg
  
 NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 
-% disp('第22步，计算group satisfaction GSc ')
+% disp('碌脷22虏陆拢卢录脝脣茫group satisfaction GSc ')
 % 
 % for k=1:4
 %     % Sc*Smax
@@ -416,7 +410,7 @@ NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 % 
 % NGScom=(GScom-min(GScom))./(max(GScom)-min(GScom))
 % 
-% disp('第23步，计算 comprehensive group satisfaction CGS ')
+% disp('碌脷23虏陆拢卢录脝脣茫 comprehensive group satisfaction CGS ')
 % 
 % for k=1:4
 %     CGS(k)=0.5*NGSneg(k)+0.5*NGScom(k);
@@ -424,29 +418,26 @@ NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 
 %CGS
 
-disp('第24步，计算 comprehensive VIKOR measure Q ') 
+disp('碌脷24虏陆拢卢录脝脣茫 comprehensive VIKOR measure Q ') 
 
-lambda=0:0.01:2/3;
-len=length(lambda);
-Q1=zeros(len,4);
+% lambda=0:0.01:1/3;
+%len=length(lambda);
+%Q1=zeros(len,4);
 
-for row =1:len
+%for row =1:len
 
 
 % Lambda12 
 % Q=lambda(row)*NGU/3+(2/3-lambda(row))*NGR+NGSneg/3; 
 % Lambda13
-% Q=lambda(row)*NGU+NGR/3+NGSneg/3; 
-% Q=lambda(row)*NGU+NGR/6+NGSneg/6; 
+% Q=lambda(row)*NGU+NGR/3+(2/3-lambda(row))*NGSneg; 
 % Lambda1
-% Q=NGU/3+NGR/3+NGSneg/3; 
+ Q=NGU/3+NGR/3+NGSneg/3; 
 % Q=NGU;
 % Lambda2
-
-% Q=NGU/6+lambda(row)*NGR+NGSneg/6;
 % Q=NGU/3+lambda(row)*NGR+NGSneg/3; 
 % Lambda3
- Q=NGU/6+NGR/6+lambda(row)*NGSneg; 
+% Q=NGU/3+NGR/3+lambda(row)*NGSneg; 
 %  Lambda23 
 %
 % Q=NGU/3+lambda(row)*NGR+(2/3-lambda(row))*NGSneg; 
@@ -458,13 +449,13 @@ Q1(row,:)=Q;
 end
 
   
-plot(lambda,Q1(:,1),'b'),hold on,
-plot(lambda,Q1(:,2),'r.'),plot(lambda,Q1(:,3),'g--'),
-plot(lambda,Q1(:,4),'k-.');
-legend('A_{1}','A_{2}','A_{3}','A_{4}','Location','Southeast');
-% axis([0,1,-0.1,0.7]);
+plot(alpha,Q1(:,1),'b'),hold on,
+plot(alpha,Q1(:,2),'r.'),plot(alpha,Q1(:,3),'g--'),
+plot(alpha,Q1(:,4),'k-.');
+legend('O_{1}','O_{2}','O_{3}','O_{4}','Location','Southeast');
+% axis([0,1,-0.1,1.1]);
 %axis([0,0.35,1.2]);
 %set(gca,'xtick',[0:0.2:1]);
 % title('Qi');
-xlabel('\lambda');
+xlabel('\mu_{11}^{l}');
 ylabel('Four software products');
