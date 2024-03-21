@@ -52,21 +52,21 @@ Q_mean=median(Q,3);
 % temp=[reshape(q_mean',1,[])];
 %   % eval(['Y_mean''=  
 % q_mean = sprintf('%4.2f  %4.2f  %4.2f   %4.2f \n', temp);
-% disp('ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îª')
+% disp('ËãÊõÆ½¾ù¾ØÕóÎª')
 % q_mean  
 
-disp('ï¿½ï¿½ï¿½ï¿½3ï¿½ï¿½Qï¿½ï¿½arithmetic mean matrixï¿½ï¿½')
+disp('²½Öè3£¬QµÄarithmetic mean matrix£º')
 
 sprintf('%4.2f  %4.2f  %4.2f  %4.2f\n', Q_mean')
 
-%%% ï¿½ï¿½3ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+%%% µÚ3²½£¬Çó¼ÓÈ¨¾ØÕóµÄìØ
 
 for k=1:t 
     P(:,:,k)=Q(:,:,k)./sum(sum(Q(:,:,k)));
     E(k)=-sum(sum(P(:,:,k).*log(P(:,:,k))))/log(m*n);   
 end
 
-disp('Qkï¿½ï¿½ï¿½ï¿½Îª')
+disp('QkµÄìØÎª')
 E
 
 P=Q_mean/sum(sum(Q_mean));
@@ -76,10 +76,10 @@ for k=1:t
     D(k) =abs( E(k)-E_mean);
     R(k) =E_mean./(E_mean+D(k));
 end
-disp('ï¿½ï¿½4ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½4ï¿½ï¿½Æ«ï¿½ï¿½ï¿½')
+disp('µÚ4²½£¬Çó4¸öÆ«Àë¶È')
 D, R
 
-disp('ï¿½ï¿½ï¿½ï¿½8ï¿½ï¿½weights of DMs Îªï¿½ï¿½')
+disp('²½Öè8£¬weights of DMs Îª£º')
 
  lambda=R/sum(R) 
     
@@ -145,7 +145,7 @@ nu{4}=[0.30 0.50 0.65 0.65
 
 F=zeros(4,4,4);
 
-disp('Step 8ï¿½ï¿½Pythagorean fuzzy matrices');
+disp('Step 8£¬Pythagorean fuzzy matrices');
 
 for k=1:4
     temp=[reshape(mu{k}',1,[]); reshape(nu{k}',1,[])];
@@ -153,9 +153,9 @@ for k=1:4
 end
 clear F1 F2 F3 
 
-%%%% ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½
+%%%% µÚ2²½£¬Çó¼ÓÈ¨¾ö²ß¾ØÕó
 
-disp('Step 9ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½')
+disp('Step 9£¬¼ÓÈ¨µ½¾ö²ßÕß')
 
 % weights=[0.3348, 0.3327, 0.3325];
 % weight(k)=ones(4,4)*lambda(k)
@@ -173,8 +173,8 @@ for k=1:4
 end
 
 
-%%%% ×ªï¿½ï¿½ï¿½É·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-disp('ï¿½ï¿½10ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ß¾ï¿½ï¿½ï¿½')
+%%%% ×ª»»³É·½°¸¾ØÕó
+disp('µÚ10²½£¬Èº¾ö²ß¾ØÕó')
 xii=permute(xi,[3,2,1])
 oi=permute(o,[3,2,1])
 for k=1:4 
@@ -184,7 +184,7 @@ for k=1:4
    eval(['G',num2str(k),'=  sprintf(''(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', temp)']);
 end
 
-disp('ï¿½ï¿½11ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½')
+disp('µÚ11²½£¬¼ÓÈ¨µ½ÊôÐÔ')
 
 weights=[0.3,0.3,0.2,0.2];
 weighted=ones(4,1)*weights
@@ -204,15 +204,15 @@ for k=1:4
    tmp=[reshape(tau(:,:,k)',1,[]);  reshape(upsilon(:,:,k)',1,[])];
    eval(['Y',num2str(k),'=  sprintf(''(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)\n'', tmp)']);    
  end
-% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+% ·½°¸ÀíÏë½â
 
-%%% ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+%%% µÚ2²½£¬ÇóÀíÏë½â
 tau_pos=max(tau,[],3);
     tau_neg=min(tau,[],3);
 
    
-    upsilon_pos=min(upsilon,[],3);%%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   
-    upsilon_neg=max(upsilon,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    upsilon_pos=min(upsilon,[],3);%%%ÕýÀíÏë½â   
+    upsilon_neg=max(upsilon,[],3); %%%¸ºÀíÏë½â
 
 pos=[];
 neg=[];
@@ -221,9 +221,9 @@ pos=[pos, tau_pos(:,1),upsilon_pos(:,1), tau_pos(:,2), upsilon_pos(:,2), tau_pos
 neg=[neg, tau_neg(:,1),upsilon_neg(:,1), tau_neg(:,2), upsilon_neg(:,2), tau_neg(:,3), upsilon_neg(:,3), tau_neg(:,4), upsilon_neg(:,4)];
 com=[com, upsilon_pos(:,1),tau_pos(:,1), upsilon_pos(:,2), tau_pos(:,2), upsilon_pos(:,3), tau_pos(:,3), upsilon_pos(:,4), tau_pos(:,4)];
 
-%%% ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+%%% Êä³öÀíÏë½â 
 
-disp('ï¿½ï¿½12ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½')
+disp('µÚ12²½£¬ÀíÏë¾ö²ß')
 
 disp('maximum decision matrix Y_{+}')
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', pos')
@@ -231,7 +231,7 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', p
 disp('minimum decision matrix Y_{-}')
 sprintf('(%4.2f, %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)  (%4.2f, %4.2f)\n', neg')
 
-disp('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½')
+disp('ÓàÀíÏë¾ö²ßÎª£º')
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', com')
 
 for i=1:4  
@@ -247,7 +247,7 @@ end
 chipos
 chineg
 
-disp('ï¿½ï¿½13ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½Îª') 
+disp('µÚ13²½£¬ÒÅº¶¾ØÕóÎª') 
 
 %R=Y;
 for k=1:4  
@@ -259,12 +259,12 @@ for k=1:4
 end
  %  https://www.ilovematlab.cn/thread-317135-1-1.html  
 
-disp('ï¿½ï¿½14ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½RmaxÎª')  
+disp('µÚ14²½£¬×î´óÒÅº¶¾ØÕóRmaxÎª')  
 
-rho_pos=max(rho,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+rho_pos=max(rho,[],3); %%%ÕýÀíÏë½â
     
 
-    varrho_pos=min(varrho,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+    varrho_pos=min(varrho,[],3); %%%ÕýÀíÏë½â 
 
 Rmax=[];
 
@@ -272,7 +272,7 @@ Rmax=[Rmax, rho_pos(:,1),varrho_pos(:,1), rho_pos(:,2), varrho_pos(:,2), rho_pos
 
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', Rmax')
 
-disp('ï¿½ï¿½15ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½S_negÎª')  
+disp('µÚ15²½£¬ÈºÂúÒâ¾ØÕóS_negÎª')  
 
 for k=1:4 
     psi(:,:,k)=tau(:,:,k).*tau_neg;  
@@ -281,11 +281,11 @@ for k=1:4
     tmp=[reshape(psi(:,:,k)',1,[]);reshape(omega(:,:,k)',1,[])];
     eval(['S_neg',num2str(k),'= sprintf(''(%4.2f, %4.2f) (%4.2f, %4.2f) (%4.2f, %4.2f) (%4.2f, %4.2f)\n'', tmp)']);  
 end
-disp('ï¿½ï¿½16ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½S_neg_maxÎª')  
+disp('µÚ16²½£¬×î´óÈºÂúÒâ¾ØÕóS_neg_maxÎª')  
 
-psi_pos=max(psi,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+psi_pos=max(psi,[],3); %%%ÕýÀíÏë½â
     
-omega_pos=min(omega,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+omega_pos=min(omega,[],3); %%%ÕýÀíÏë½â 
 
 S_neg_max=[];
 
@@ -293,7 +293,7 @@ S_neg_max=[S_neg_max, psi_pos(:,1),omega_pos(:,1), psi_pos(:,2), omega_pos(:,2),
 
 sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S_neg_max')
 
-% disp('ï¿½ï¿½17ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½S_comÎª')  
+% disp('µÚ17²½£¬ÈºÂúÒâ¾ØÕóS_comÎª')  
 % 
 % for k=1:4    
 %     iota{k}=tau{k}.*upsilon_pos;
@@ -305,15 +305,15 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S
 %      eval(['Scom',num2str(k),'= sprintf(''(%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f)\n'', tmp)']);  
 % end
 % 
-% disp('ï¿½ï¿½18ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Èºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½S_com_maxÎª')  
+% disp('µÚ18²½£¬×î´óÈºÂúÒâ¾ØÕóS_com_maxÎª')  
 % 
 % temp=[];
 % for k=1:4  
 %     tem(:,:,k)=iota{k};
-%     iota_pos=max(tem,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+%     iota_pos=max(tem,[],3); %%%ÕýÀíÏë½â
 %     
 %     tp(:,:,k)=kappa{k};
-%     kappa_pos=min(tp,[],3); %%%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½       
+%     kappa_pos=min(tp,[],3); %%%ÕýÀíÏë½â       
 % end
 % 
 % S_com_max=[];
@@ -322,7 +322,7 @@ sprintf('(%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f,  %4.2f)  (%4.2f, %4.2f)\n', S
 % 
 % sprintf('(%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f) (%4.3f, %4.3f)\n', S_com_max')
 
-disp('ï¿½ï¿½19ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½group utility')  
+disp('µÚ19²½£¬¼ÆËãgroup utility')  
 
 for k=1:4 
     % Yi*Y+
@@ -335,11 +335,11 @@ for k=1:4
     Y_Yneg(k)=sum(sum(tau(:,:,k).*tau_neg+upsilon(:,:,k).*upsilon_neg ...
      +chi(:,:,k).*chi_neg));
 end
-disp('Yiï¿½ï¿½Yposï¿½Ú»ï¿½ ')  
+disp('YiÓëYposÄÚ»ý ')  
 
 Y_Ypos
 
-disp('Yiï¿½ï¿½Ynegï¿½Ú»ï¿½ ') 
+disp('YiÓëYnegÄÚ»ý ') 
 
 Y_Yneg
 
@@ -352,7 +352,7 @@ GU
  
 NGU=(GU-min(GU))./(max(GU)-min(GU))
 
-disp('ï¿½ï¿½20ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½group regret ')  
+disp('µÚ20²½£¬¼ÆËãgroup regret ')  
 
 for k=1:4  
     % Ri*Rmax
@@ -361,7 +361,7 @@ for k=1:4
     R_Rmax(k)=sum(sum(rho(:,:,k).*rho_pos+varrho(:,:,k).*varrho_pos+sigma(:,:,k).*sigma_pos));
 end
 
-disp('Riï¿½ï¿½Rmaxï¿½Ú»ï¿½ ') 
+disp('RiÓëRmaxÄÚ»ý ') 
 
 R_Rmax
 
@@ -373,7 +373,7 @@ GR
 NGR=(max(GR)-GR)./(max(GR)-min(GR))
 
 
-disp('ï¿½ï¿½21ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½group satisfaction GS- ')  
+disp('µÚ21²½£¬¼ÆËãgroup satisfaction GS- ')  
 
 for k=1:4  
     % S-*Smax
@@ -383,7 +383,7 @@ for k=1:4
      +varsigma(:,:,k).*varsigma_pos));
 end
 
-disp('Si^{-}ï¿½ï¿½Smax^{-}ï¿½Ú»ï¿½ ')
+disp('Si^{-}ÓëSmax^{-}ÄÚ»ý ')
 Sneg_Smax
 
 disp('GS_{i}^{-} ')
@@ -395,7 +395,7 @@ GSneg
  
 NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 
-% disp('ï¿½ï¿½22ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½group satisfaction GSc ')
+% disp('µÚ22²½£¬¼ÆËãgroup satisfaction GSc ')
 % 
 % for k=1:4
 %     % Sc*Smax
@@ -416,7 +416,7 @@ NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 % 
 % NGScom=(GScom-min(GScom))./(max(GScom)-min(GScom))
 % 
-% disp('ï¿½ï¿½23ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ comprehensive group satisfaction CGS ')
+% disp('µÚ23²½£¬¼ÆËã comprehensive group satisfaction CGS ')
 % 
 % for k=1:4
 %     CGS(k)=0.5*NGSneg(k)+0.5*NGScom(k);
@@ -424,7 +424,7 @@ NGSneg=(GSneg-min(GSneg))./(max(GSneg)-min(GSneg))
 
 %CGS
 
-disp('ï¿½ï¿½24ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ comprehensive VIKOR measure Q ') 
+disp('µÚ24²½£¬¼ÆËã comprehensive VIKOR measure Q ') 
 
 % lambda=0:0.01:1/3;
 %len=length(lambda);
